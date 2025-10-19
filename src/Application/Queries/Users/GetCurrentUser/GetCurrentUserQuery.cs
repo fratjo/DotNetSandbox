@@ -1,7 +1,8 @@
 using Domain.Entities;
 using Domain.Common;
-using Application.Common.Mediator.Query;
+using Application.DTOs.UserDto;
+using Application.Common.Mediator;
 
 namespace Application.Queries.Users.GetCurrentUser;
 
-public record GetCurrentUserQuery : IQuery<Result<User>>;
+public record GetCurrentUserQuery : IQuery<Result<UserDto>>;

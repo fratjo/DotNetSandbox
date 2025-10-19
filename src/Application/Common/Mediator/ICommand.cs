@@ -1,4 +1,4 @@
-namespace Application.Common.Mediator.Command;
+namespace Application.Common.Mediator;
 
 public interface ICommand<TResponse>;
 

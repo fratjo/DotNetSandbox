@@ -1,11 +1,12 @@
 ﻿using Application.Commands.Users;
 using Application.Common.Mediator;
+using Application.DTOs.UserDto;
 using FastEndpoints;
 using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Api.Endpoints.Users;
 
-public class CreateUserEndpoint(IMediator mediator) : Endpoint<CreateUserCommand, Guid>
+public class CreateUserEndpoint(IMediator mediator) : Endpoint<CreateUserCommand, UserIdDto>
 {
     public override void Configure()
     {
@@ -22,10 +23,9 @@ public class CreateUserEndpoint(IMediator mediator) : Endpoint<CreateUserCommand
     public override async Task HandleAsync(CreateUserCommand command, CancellationToken ct)
     {
         var result = await mediator.SendAsync(command, ct);
-        if (result.IsSuccess)
+        if (result.IsSuccess && result.Value is not null)
         {
-            var userGuid = result.Value;
-            await Send.OkAsync(userGuid);
+            await Send.OkAsync(result.Value);
         }
         else
         {

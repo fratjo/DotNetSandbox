@@ -1,13 +1,13 @@
 ﻿using Application.Common.Mediator;
+using Application.DTOs.UserDto;
 using Application.Queries.Users.GetCurrentUser;
-using Domain.Entities;
 using FastEndpoints;
 using Microsoft.AspNetCore.Http.HttpResults;
 using System.Net;
 
 namespace WebApi.Endpoints.Users;
 
-public class GetCurrentUserEndpoint(IMediator mediator) : EndpointWithoutRequest<Results<Ok<User>, NotFound<string>, BadRequest<string>, UnauthorizedHttpResult, ProblemDetails>>
+public class GetCurrentUserEndpoint(IMediator mediator) : EndpointWithoutRequest<Results<Ok<UserDto>, NotFound<string>, BadRequest<string>, UnauthorizedHttpResult, ProblemDetails>>
 {
     public override void Configure()
     {

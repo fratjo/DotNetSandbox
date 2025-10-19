@@ -1,4 +1,4 @@
-namespace Application.Common.Mediator.Query;
+namespace Application.Common.Mediator;
 
 public interface IQueryHandler<in TQuery, TResponse> where TQuery : IQuery<TResponse>
 {

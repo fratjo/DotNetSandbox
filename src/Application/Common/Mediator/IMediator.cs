@@ -1,6 +1,3 @@
-using Application.Common.Mediator.Command;
-using Application.Common.Mediator.Query;
-
 namespace Application.Common.Mediator;
 
 public interface IMediator

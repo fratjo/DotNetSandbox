@@ -1,6 +1,4 @@
 ﻿using Application.Common.Mediator;
-using Application.Common.Mediator.Command;
-using Application.Common.Mediator.Query;
 
 namespace Infrastructure.Mediator;
 
