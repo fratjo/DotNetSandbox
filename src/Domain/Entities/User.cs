@@ -2,9 +2,12 @@ using Domain.Common;
 namespace Domain.Entities;
 
 public class User
-{
-    private DateTime _usernameLastUpdated;
+{   
+    public Guid Id { get; init; } = Guid.NewGuid();
+    private DateTime _createdAt { get; init; } = DateTime.UtcNow;
+
     public string Username { get; private set; } = string.Empty;
+    private DateTime _usernameLastUpdated { get; set; } = default;
 
     public static Result<User> Create(string username)
     {

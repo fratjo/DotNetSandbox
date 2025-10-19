@@ -26,10 +26,9 @@ public class GetCurrentUserEndpoint(IMediator mediator) : EndpointWithoutRequest
     public override async Task HandleAsync(CancellationToken ct)
     {
         var result = await mediator.SendAsync(new GetCurrentUserQuery(), ct);
-
         if (result.IsSuccess && result.Value is not null)
         {
-            await Send.ResultAsync(TypedResults.Ok<User>(result.Value));
+            await Send.ResultAsync(TypedResults.Ok(result.Value));
         }
         else
         {
