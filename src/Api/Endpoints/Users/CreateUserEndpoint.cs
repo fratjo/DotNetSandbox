@@ -1,12 +1,15 @@
-﻿using Application.Commands.Users;
+﻿using Application.Commands.Users.CreateUser;
 using Application.Common.Mediator;
 using Application.DTOs.UserDto;
 using FastEndpoints;
-using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Api.Endpoints.Users;
 
-public class CreateUserEndpoint(IMediator mediator) : Endpoint<CreateUserCommand, UserIdDto>
+public class CreateUserRequest
+{
+    public CreateUserDto Dto { get; set; } = new();
+}
+public class CreateUserEndpoint(IMediator mediator) : Endpoint<CreateUserRequest, UserIdDto>
 {
     public override void Configure()
     {
@@ -17,11 +20,12 @@ public class CreateUserEndpoint(IMediator mediator) : Endpoint<CreateUserCommand
             s.Summary = "Create User";
             s.Description = "Creates a new user in the system.";
             s.Responses[201] = "Returns the newly created user's ID.";
-            s.Responses[400] = "Bad Request - The request was invalid.";
+            s.Responses[409] = "Conflict - Already existing user";
         });
     }
-    public override async Task HandleAsync(CreateUserCommand command, CancellationToken ct)
+    public override async Task HandleAsync(CreateUserRequest request, CancellationToken ct)
     {
+        var command = new CreateUserCommand(request.Dto.Username, request.Dto.Age);
         var result = await mediator.SendAsync(command, ct);
         if (result.IsSuccess && result.Value is not null)
         {
@@ -29,7 +33,7 @@ public class CreateUserEndpoint(IMediator mediator) : Endpoint<CreateUserCommand
         }
         else
         {
-            await Send.ResultAsync(TypedResults.Problem(result.Message ?? "Failed to create user."));
+            await Send.ResultAsync(TypedResults.Problem(result.Message ?? "Failed to create user.", null, (int)result.ErrorType));
         }
     }
 }
