@@ -1,5 +1,18 @@
 ﻿namespace Application.DTOs.UserDto;
 
-public record UserDto(Guid Id, string Username);
+public class CreateUserDto
+{
+    public string Username { get; set; } = string.Empty;
+    public int Age { get; set; }
+}
 
-public record UserIdDto(Guid Id);
+public record UserDto(string username, int age);
+public record UserIdDto(Guid id);
+
+public static class UserDtoExtensions
+{
+    public static UserDto ToUserDto(this Domain.Entities.User user)
+    {
+        return new UserDto(user.Username, user.Age);
+    }
+}

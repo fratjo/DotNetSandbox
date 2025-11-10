@@ -14,6 +14,7 @@ builder.Services.AddFastEndpoints();
 builder.Services.AddSwaggerDocument();
 builder.Services.AddApplicationCQRS();
 builder.Services.AddMediator();
+builder.Services.AddRepositories();
 
 var app = builder.Build();
 
