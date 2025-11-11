@@ -14,10 +14,10 @@ public class GetUserRequest
 
 public class GetUserResponse
 {
-    public UserDto user { get; set; }
+    public UserDto user { get; set; } = null!;
 }
 
-public class GetUserEndpoint(IMediator mediator): Endpoint<GetUserRequest, GetUserResponse>
+public class GetUserEndpoint(IMediator mediator) : Endpoint<GetUserRequest, GetUserResponse>
 {
     public override void Configure()
     {
@@ -30,7 +30,7 @@ public class GetUserEndpoint(IMediator mediator): Endpoint<GetUserRequest, GetUs
         var result = await mediator.SendAsync(command, ct);
         if (result.IsSuccess && result.Value is not null)
         {
-            await Send.OkAsync( new GetUserResponse { user = result.Value});
+            await Send.OkAsync(new GetUserResponse { user = result.Value });
         }
         else
         {
