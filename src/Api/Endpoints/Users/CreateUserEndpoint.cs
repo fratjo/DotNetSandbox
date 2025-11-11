@@ -9,7 +9,12 @@ public class CreateUserRequest
 {
     public CreateUserDto Dto { get; set; } = new();
 }
-public class CreateUserEndpoint(IMediator mediator) : Endpoint<CreateUserRequest, UserIdDto>
+
+public class CreateUserResponse
+{
+    public UserIdDto UserId { get; set; } = null!;
+}
+public class CreateUserEndpoint(IMediator mediator) : Endpoint<CreateUserRequest, CreateUserResponse>
 {
     public override void Configure()
     {
@@ -29,7 +34,7 @@ public class CreateUserEndpoint(IMediator mediator) : Endpoint<CreateUserRequest
         var result = await mediator.SendAsync(command, ct);
         if (result.IsSuccess && result.Value is not null)
         {
-            await Send.OkAsync(result.Value);
+            await Send.OkAsync(new CreateUserResponse { UserId = result.Value });
         }
         else
         {
