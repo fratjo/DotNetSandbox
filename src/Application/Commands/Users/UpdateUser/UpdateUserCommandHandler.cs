@@ -6,7 +6,7 @@ namespace Application.Commands.Users.PatchUser;
 
 public class UpdateUserCommandHandler(IUserRepository userRepository, IUnitOfWork unitOfWork) : ICommandHandler<UpdateUserCommand, Result>
 {
-    public async Task<Result> HandleAsync(UpdateUserCommand command, CancellationToken cancellationToken)
+    public async Task<Result> HandleAsync(UpdateUserCommand command, CancellationToken? cancellationToken)
     {
         var user = await userRepository.GetByIdAsync(command.UserId, cancellationToken);
         if (user is null)

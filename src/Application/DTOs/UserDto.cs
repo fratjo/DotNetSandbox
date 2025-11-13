@@ -6,8 +6,9 @@ public class CreateUserDto
     public int Age { get; set; }
 }
 
-public record UserDto(string username, int age);
 public record UserIdDto(Guid id);
+
+public record UserDto(string username, int age);
 
 public static class UserDtoExtensions
 {

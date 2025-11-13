@@ -14,6 +14,7 @@ public class CreateUserResponse
 {
     public UserIdDto UserId { get; set; } = null!;
 }
+
 public class CreateUserEndpoint(IMediator mediator) : Endpoint<CreateUserRequest, CreateUserResponse>
 {
     public override void Configure()

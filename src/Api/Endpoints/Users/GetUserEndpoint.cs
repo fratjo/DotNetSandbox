@@ -27,14 +27,14 @@ public class GetUserEndpoint(IMediator mediator): Endpoint<GetUserRequest, GetUs
     public override async Task HandleAsync(GetUserRequest request, CancellationToken ct)
     {
         var command = new GetUserQuery(request.UserId);
-        var result = await mediator.SendAsync(command, ct);
-        if (result.IsSuccess && result.Value is not null)
+        var user = await mediator.SendAsync(command, ct);
+        if (user is not null)
         {
-            await Send.OkAsync( new GetUserResponse { user = result.Value});
+            await Send.OkAsync( new GetUserResponse { user = user});
         }
         else
         {
-            await Send.ResultAsync(TypedResults.Problem(result.Message ?? "Failed to create user."));
+            await Send.ResultAsync(TypedResults.Problem("Failed to create user."));
         }
     }
 }

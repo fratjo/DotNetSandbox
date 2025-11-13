@@ -6,34 +6,34 @@ namespace Infrastructure.Repositories;
 
 public class UserRepository(CacheContext context) : IUserRepository
 {
-    public async Task AddAsync(User entity, CancellationToken cancellationToken = default)
+    public async Task AddAsync(User entity, CancellationToken? cancellationToken = null)
     {
         context.Users.Add(entity);
         await Task.CompletedTask;
     }
 
-    public async Task DeleteAsync(User entity, CancellationToken cancellationToken = default)
+    public async Task DeleteAsync(User entity, CancellationToken? cancellationToken = null)
     {
         context.Users.Remove(entity);
         await Task.CompletedTask;
     }
 
-    public async Task<IReadOnlyList<User>> GetAllAsync(CancellationToken cancellationToken = default)
+    public async Task<IReadOnlyList<User>> GetAllAsync(CancellationToken? cancellationToken = null)
     {
         return await Task.FromResult(context.Users.ToList());
     }
 
-    public async Task<User?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task<User?> GetByIdAsync(Guid id, CancellationToken? cancellationToken = null)
     {
         return await Task.FromResult(context.Users.FirstOrDefault(u => u.Id == id));
     }
 
-    public async Task<User?> GetByUsernameAsync(string username, CancellationToken cancellationToken = default)
+    public async Task<User?> GetByUsernameAsync(string username, CancellationToken? cancellationToken = null)
     {
         return await Task.FromResult(context.Users.FirstOrDefault(u => u.Username == username));
     }
 
-    public async Task UpdateAsync(User entity, CancellationToken cancellationToken = default)
+    public async Task UpdateAsync(User entity, CancellationToken? cancellationToken = null)
     {
         var u = context.Users.FirstOrDefault(x => x.Id == entity.Id);
         if (u != null)

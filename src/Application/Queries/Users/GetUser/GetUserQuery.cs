@@ -5,4 +5,4 @@ using Domain.Entities;
 
 namespace Application.Queries.Users.GetUser;
 
-public record GetUserQuery(Guid UserId) : IQuery<Result<UserDto>>;
+public record GetUserQuery(Guid UserId) : IQuery<UserDto?>;

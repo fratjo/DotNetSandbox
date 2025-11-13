@@ -8,7 +8,7 @@ namespace Application.Commands.Users.CreateUser;
 
 public class CreateUserCommandHandler(IUserRepository userRepository) : ICommandHandler<CreateUserCommand, Result<UserIdDto>>
 {
-    public async Task<Result<UserIdDto>> HandleAsync(CreateUserCommand command, CancellationToken cancellationToken)
+    public async Task<Result<UserIdDto>> HandleAsync(CreateUserCommand command, CancellationToken? cancellationToken = null)
     {
         var existingUser = await userRepository.GetByUsernameAsync(command.Username.ToUpperInvariant(), cancellationToken);
         if (existingUser is not null)
