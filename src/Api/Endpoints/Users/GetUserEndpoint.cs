@@ -14,10 +14,10 @@ public class GetUserRequest
 
 public class GetUserResponse
 {
-    public UserDto user { get; set; }
+    public UserDto user { get; set; } = null!;
 }
 
-public class GetUserEndpoint(IMediator mediator): Endpoint<GetUserRequest, GetUserResponse>
+public class GetUserEndpoint(IMediator mediator) : Endpoint<GetUserRequest, GetUserResponse>
 {
     public override void Configure()
     {
