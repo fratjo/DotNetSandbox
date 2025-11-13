@@ -55,7 +55,11 @@
 
     private async Task OnAddUser()
     {
-        await mediator.SendAsync(new CreateUserCommand(newUser.Username, newUser.Age));
+        Result<UserIdDto> result = await mediator.SendAsync(new CreateUserCommand(newUser.Username, newUser.Age));
+        if (!result.IsSuccess)
+        {
+            // Handle error (e.g., show a message to the user)
+        }
 
         users = await mediator.SendAsync(new GetUsersQuery());
         newUser = new CreateUserDto();
